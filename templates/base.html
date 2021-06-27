@@ -1,0 +1,168 @@
+{% comment %} username = chillax
+pass = p@9967 {% endcomment %}
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}{% endblock title %} | MOVIEFLIX</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}">
+    <!-- Custom icon font-->
+    <link rel="stylesheet" href="{% static 'css/fontastic.css' %}">
+    <!-- Google fonts - Open Sans-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    <!-- Fancybox-->
+    <link rel="stylesheet" href="{% static 'vendor/@fancyapps/fancybox/jquery.fancybox.min.css' %}">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="{% static 'css/style.default.css' %}" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="favicon.png">
+
+    <link href="{% static "styles/github.css" %}" rel="stylesheet"> 
+
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+   
+  </head>
+  <body>
+    <header class="header">
+      <!-- Main Navbar-->
+      <nav class="navbar navbar-expand-lg">
+        <div class="search-area">
+          <div class="search-area-inner d-flex align-items-center justify-content-center">
+            <div class="close-btn"><i class="icon-close"></i></div>
+            <div class="row d-flex justify-content-center">
+              <div class="col-md-8">
+                <form action="{% url 'search' %}">
+                  <div class="form-group">
+                    <input type="search" name="q" id="search" placeholder="What are you looking for?">
+                    <button type="submit" class="submit"><i class="icon-search-1"></i></button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <!-- Navbar Brand --> 
+          <div class="navbar-header d-flex align-items-center justify-content-between">
+            <!-- Navbar Brand --><a href="/" class="navbar-brand">MOVIEFLIX Blog</a>
+            <!-- Toggle Button-->
+            <button type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span></span><span></span><span></span></button>
+          </div>
+          <!-- Navbar Menu -->
+          <div id="navbarcollapse" class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item"><a href="/" class="nav-link active ">Home</a>
+              </li>
+              <li class="nav-item"><a href="/blog" class="nav-link ">Blog</a>
+              </li>
+              {% comment %} <li class="nav-item"><a href="/post" class="nav-link ">Post</a>
+              </li> {% endcomment %}
+              <li class="nav-item"><a href="/contact" class="nav-link ">Contact</a>
+              </li>
+              {% if user.is_authenticated %}
+              <li class="nav-item"><a href="#" class="nav-link ">Hello , <strong>{{ user.username }}</strong></a>
+              </li>
+              {% endif %}
+              {% if request.user.is_staff %}
+              <li class="nav-item"><a href="{% url 'post-create' %}" class="nav-link ">Create</a>
+              </li>
+              {% endif %}
+            </ul>
+            <div class="navbar-text"><a href="#" class="search-btn"><i class="icon-search-1"></i></a></div>
+              {% if not user.is_authenticated %}
+              <div class="navbar-text ml-5"><a href="{% url 'account_login' %}" >Login</a></div>
+              <div class="navbar-text ml-4"><a href="{% url 'account_signup' %}" >Signup</a></div>
+              {% endif %}
+            {% if user.is_authenticated %}
+            <div class="navbar-text ml-5"><a href="{% url 'account_logout' %}" >Logout</a></div>
+            {% endif %}
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show my-0" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+    {% endif %}
+
+    {% block body %} {% endblock body %}
+
+     <!-- Page Footer-->
+    <footer class="main-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="logo">
+              <h6 class="text-white">MOVIEFLIX Blog</h6>
+            </div>
+            <div class="contact-details">
+              <p>Damani Nagar , Solapur , IN </p>
+              <p>Phone: 7218540151</p>
+              <p>Email: <a href="prathameshshrikhande23667@gmail.com">prathameshshrikhande23667@gmail.com</a></p>
+              <ul class="social-menu">
+                <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+                <li class="list-inline-item"><a href="#"><i class="fa fa-behance"></i></a></li>
+                <li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="menus d-flex">
+              <ul class="list-unstyled">
+              </ul>
+              <ul class="list-unstyled">
+                <h4><li><a href="/contact">Want to be an Author ? :- <strong>Contact<strong></a></li></h4>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="latest-posts">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copyrights">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <p>&copy; 2021. All rights reserved. @Prathamesh Shrikhande</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- JavaScript files-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/popper.js/umd/popper.min.js' %}"> </script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'vendor/jquery.cookie/jquery.cookie.js' %}"> </script>
+    <script src="{% static 'vendor/@fancyapps/fancybox/jquery.fancybox.min.js' %}"></script>
+    <script src="{% static 'js/front.js' %}"></script>
+
+    <script src="{% static "highlight.pack.js" %}"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

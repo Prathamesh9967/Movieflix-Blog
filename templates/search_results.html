@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %} Search {% endblock title %}
+
+{% block body %}
+
+ <div class="widget latest-posts">
+        <header>
+          <h3 class="h6">Search Results</h3>
+        </header>
+        <div class="blog-posts">
+
+            {% for result in queryset %}
+            <a href="{{ result.get_absolute_url }}">
+            <div class="item d-flex align-items-center">
+                <div class="image"><img src="{{result.thumbnail.url}}" alt="..." class="img-fluid"></div>
+                  <div class="title"><strong>{{result.title}}</strong>
+                    <div class="d-flex align-items-center">
+                      <div class="views"><i class="icon-eye"></i> {{result.view_count}}</div>
+                      <div class="comments"><i class="icon-comment"></i>{{result.comment_count}}</div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            </a>
+            {% endfor %}
+
+        </div>             
+</div>   
+
+
+{% endblock body %}

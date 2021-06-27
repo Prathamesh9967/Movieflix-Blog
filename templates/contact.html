@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} Contact {% endblock title %}
+
+{% block body %}
+
+<div class="container my-4">
+	<div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="well well-sm">
+          <legend class="text-center">Contact us to become an Author -</legend>
+          <form class="form-horizontal" action="." method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <fieldset>
+            <!-- Form actions -->
+            <div class="form-group">
+              <div class="col-md-12 text-center mt-3">
+                <button type="submit" class="btn btn-success btn-lg">Submit</button>
+              </div>
+            </div>
+          </fieldset>
+          </form>
+        </div>
+      </div>
+	</div>
+</div>
+
+{% endblock body %}
